@@ -34,7 +34,7 @@
   </p>
 </div>
 <p align="center">
-  📖 <a href="https://github.com/InternLM/ARM-Thinker">Paper</a> |
+  📖 <a href="https://arxiv.org/pdf/2512.05111">Paper</a> |
   🤗 <a href="https://github.com/InternLM/ARM-Thinker">Models</a> |
   🤗 <a href="https://github.com/InternLM/ARM-Thinker">SFT-Data</a> |
   🤗 <a href="https://github.com/InternLM/ARM-Thinker">RL-Data</a> |
