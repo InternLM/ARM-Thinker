@@ -1,0 +1,44 @@
+tools:
+  - class_name: "verl.tools.image_zoom_in_tool.ImageZoomInTool"
+    config:
+      type: "native"
+    tool_schema:
+      type: "function"
+      function:
+        name: "image_zoom_in_tool"
+        description: "Zoom in on a region of an image using relative coordinates in [0, 1000]. For example, to zoom in on the center 50%, use [250, 250, 750, 750]."
+        parameters:
+          type: "object"
+          properties:
+            image:
+              type: "string"
+              description: "The image to zoom in on (e.g., `original_image`, `observation_1`, `observation_2`, ...)."
+            bbox_2d:
+              type: "array"
+              items:
+                type: "number"
+                minimum: 0
+                maximum: 1000
+              minItems: 4
+              maxItems: 4
+              description: "Bounding box [x1, y1, x2, y2] with values between 0 and 1000, where (x1, y1) = top-left, (x2, y2) = bottom-right."
+          required: ["image", "bbox_2d"]
+  - class_name: "verl.tools.web_search_tool.WebSearchTool"
+    config:
+      type: "native"
+    tool_schema:
+      type: "function"
+      function:
+        name: "web_search"
+        description: >
+          Search the internet using the Serper API and return summarized search results.
+          Useful for retrieving up-to-date external knowledge beyond local documents.
+          The tool returns formatted snippets from top web sources.
+        parameters:
+          type: "object"
+          properties:
+            query:
+              type: "string"
+              description: >
+                A clear, standalone search query string. Example: "What are the latest AI research breakthroughs in 2025?"
+          required: ["query"]

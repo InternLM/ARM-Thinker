@@ -1,0 +1,31 @@
+tools:
+  - class_name: "verl.tools.paddle_ocr_tool.ExtractTextFromImageTool"
+    config:
+      type: "native"
+    tool_schema:
+      type: "function"
+      function:
+        name: "extract_text"
+        description: "Extract text from images using PaddleOCR. This tool can recognize both Chinese and English text from images."
+        parameters:
+          type: "object"
+          properties:
+            image:
+              type: "string"
+              description: "Image name to be processed (e.g., 'image_0', 'image_1', 'image_2', etc.). The image should be provided in the response_store during tool creation."
+          required: ["image"]
+  - class_name: "verl.tools.pix2text_tool.ExtractMathematicalFormulaTool"
+    config:
+      type: "native"
+    tool_schema:
+      type: "function"
+      function:
+        name: "extract_formula"
+        description: "Extract mathematical formulas and equations from images using Pix2Text. This tool can recognize LaTeX-formatted mathematical expressions from images."
+        parameters:
+          type: "object"
+          properties:
+            image:
+              type: "string"
+              description: "Image name to be processed (e.g., 'image_0', 'image_1', 'image_2', etc.). The image should be provided in the response_store during tool creation."
+          required: ["image"]

@@ -1,0 +1,38 @@
+tools:
+  - class_name: "verl.tools.doc_page_tools.DocPageSearchTool"
+    config:
+      type: "native"
+    tool_schema:
+      type: "function"
+      function:
+        name: "doc_page_retrieval_by_query"
+        description: "Search pages in a document by natural-language query and return one image that concatenates the top-k matched pages. Note that this tool may be inaccurate, so you should use it as a reference only."
+        parameters:
+          type: "object"
+          properties:
+            filename:
+              type: "string"
+              description: "Document identifier used for retrieval."
+            query:
+              type: "string"
+              description: "Natural-language search query to find relevant pages."
+          required: ["filename", "query"]
+
+  - class_name: "verl.tools.doc_page_tools.DocPageByIndexTool"
+    config:
+      type: "native"
+    tool_schema:
+      type: "function"
+      function:
+        name: "doc_page_retrieval_by_index"
+        description: "Return a single page image by 1-based page index for a given document."
+        parameters:
+          type: "object"
+          properties:
+            filename:
+              type: "string"
+              description: "Document identifier used for retrieval."
+            image_idx:
+              type: "integer"
+              description: "1-based page index to fetch (e.g., 1 = first page image)."
+          required: ["filename", "image_idx"]

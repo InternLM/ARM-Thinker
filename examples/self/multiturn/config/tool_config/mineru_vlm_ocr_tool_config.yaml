@@ -1,0 +1,17 @@
+tools:
+  - class_name: "verl.tools.mineru_vlm_ocr_tool.ExtractTextFromImageWithVLM"
+    config:
+      type: "native"
+    tool_schema:
+      type: "function"
+      function:
+        name: "extract_text_from_image_with_mineru"
+        description: "Extract text from images using MinerU VLM OCR. This tool uses advanced vision-language models for better text recognition and layout understanding."
+        parameters:
+          type: "object"
+          properties:
+            image:
+              type: "string"
+              description: "Image name which you want to extract text from.(e.g., `original_image`, `observation_1`, `observation_2`, ...). Image name information will be provided by use or tool response."
+          required: ["image"]
+

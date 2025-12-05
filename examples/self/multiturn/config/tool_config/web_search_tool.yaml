@@ -1,0 +1,20 @@
+tools:
+  - class_name: "verl.tools.web_search_tool.WebSearchTool"
+    config:
+      type: "native"
+    tool_schema:
+      type: "function"
+      function:
+        name: "web_search"
+        description: >
+          Search the internet using the Serper API and return summarized search results.
+          Useful for retrieving up-to-date external knowledge beyond local documents.
+          The tool returns formatted snippets from top web sources.
+        parameters:
+          type: "object"
+          properties:
+            query:
+              type: "string"
+              description: >
+                A clear, standalone search query string. Example: "What are the latest AI research breakthroughs in 2025?"
+          required: ["query"]

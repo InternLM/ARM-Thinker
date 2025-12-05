@@ -1,0 +1,16 @@
+tools:
+  - class_name: "verl.tools.paddle_ocr_tool.ExtractTextFromImageTool"
+    config:
+      type: "native"
+    tool_schema:
+      type: "function"
+      function:
+        name: "extract_text_from_image"
+        description: "Extract text from images using PaddleOCR. This tool can recognize both Chinese and English text from images."
+        parameters:
+          type: "object"
+          properties:
+            image:
+              type: "string"
+              description: "Image name to be processed (e.g., 'image_0', 'image_1', 'image_2', etc.). The image should be provided in the response_store during tool creation."
+          required: ["image"]

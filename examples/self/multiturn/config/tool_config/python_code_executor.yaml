@@ -1,0 +1,24 @@
+tools:
+  - class_name: "verl.tools.python_code_executor.PythonCodeExecutor"
+    config:
+      type: "native"
+    tool_schema:
+      type: "function"
+      function:
+        name: "python_code_executor"
+        description: >
+          A safe, sandboxed Python code executor designed for complex or multi-step calculations.
+          Use this tool when the computation is too involved to do by yourself.
+          Do NOT use it for simple math that you can do by yourself.
+        parameters:
+          type: "object"
+          properties:
+            code:
+              type: "string"
+              description: >
+                Python code snippet for the complex computation
+                (e.g., matrix operations, numerical methods, simulations, multi-step logic).
+            timeout:
+              type: "integer"
+              description: "Optional timeout in seconds (default: 10)."
+          required: ["code"]

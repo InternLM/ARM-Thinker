@@ -1,0 +1,23 @@
+hydra:
+  searchpath:
+    # - file:///xxx/verl/verl/trainer/config
+    - file://verl/trainer/config
+
+defaults:
+  - ppo_trainer
+  - _self_
+
+data:
+  return_raw_chat: True
+  return_multi_modal_inputs: False
+
+actor_rollout_ref:
+  hybrid_engine: True
+  model:
+    custom_chat_template: chat_template/qwen_vl_chat_template.jinja
+  rollout:
+    name: vllm
+    multi_turn:
+      enable: True
+      max_assistant_turns: 5
+      # tool_config_path: "./config/tool_config/gsm8k_tool_config.yaml"

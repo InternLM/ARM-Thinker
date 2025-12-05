@@ -1,0 +1,395 @@
+tools:
+  - class_name: "verl.tools.instruction_following_tool.ParagraphNumberInRangeTool"
+    config: 
+      type: native
+    tool_schema:
+      type: "function"
+      function:
+        name: "check_whether_response_paragraph_number_in_range"
+        description: "Checks if the total number of paragraphs in the response is within a specified range [lower_bound, upper_bound]."
+        parameters:
+          type: "object"
+          properties:
+            response:
+              type: "string"
+              description: "Text name to be checked (e.g., 'text_0', 'text_1', 'text_2', etc.)"
+            lower_bound:
+              type: "integer"
+              description: "The minimum allowed number of paragraphs."
+            upper_bound:
+              type: "integer"
+              description: "The maximum allowed number of paragraphs."
+          required: ["response", "lower_bound", "upper_bound"]
+
+  - class_name: "verl.tools.instruction_following_tool.SentenceNumberInRangeTool"
+    config: 
+      type: native
+    tool_schema:
+      type: "function"
+      function:
+        name: "check_whether_response_sentence_number_in_range"
+        description: "Checks if the total number of sentences in the response is within a specified range [lower_bound, upper_bound]."
+        parameters:
+          type: "object"
+          properties:
+            response:
+              type: "string"
+              description: "Text name to be checked (e.g., 'text_0', 'text_1', 'text_2', etc.)"
+            lower_bound:
+              type: "integer"
+              description: "The minimum allowed number of sentences."
+            upper_bound:
+              type: "integer"
+              description: "The maximum allowed number of sentences."
+          required: ["response", "lower_bound", "upper_bound"]
+
+  - class_name: "verl.tools.instruction_following_tool.EachParagraphSentenceNumberInRangeTool"
+    config: 
+      type: native
+    tool_schema:
+      type: "function"
+      function:
+        name: "check_whether_each_paragraph_sentence_number_in_range"
+        description: "Checks if the sentence count of each paragraph in the response is within a specified range [lower_bound, upper_bound]."
+        parameters:
+          type: "object"
+          properties:
+            response:
+              type: "string"
+              description: "Text name to be checked (e.g., 'text_0', 'text_1', 'text_2', etc.)"
+            lower_bound:
+              type: "integer"
+              description: "The minimum allowed sentences per paragraph."
+            upper_bound:
+              type: "integer"
+              description: "The maximum allowed sentences per paragraph."
+          required: ["response", "lower_bound", "upper_bound"]
+
+  - class_name: "verl.tools.instruction_following_tool.EachParagraphSentenceNumberInRangeListTool"
+    config: 
+      type: native
+    tool_schema:
+      type: "function"
+      function:
+        name: "check_whether_each_paragraph_sentence_number_in_range_list"
+        description: "Checks if each paragraph's sentence count matches a corresponding range in a list. The number of paragraphs must equal the number of ranges."
+        parameters:
+          type: "object"
+          properties:
+            response:
+              type: "string"
+              description: "Text name to be checked (e.g., 'text_0', 'text_1', 'text_2', etc.)"
+            ranges:
+              type: "array"
+              description: "A list of [lower_bound, upper_bound] pairs, one for each paragraph."
+              items:
+                type: "array"
+                items:
+                  type: "integer"
+          required: ["response", "ranges"]
+
+  - class_name: "verl.tools.instruction_following_tool.WordCountInRangeTool"
+    config: 
+      type: native
+    tool_schema:
+      type: "function"
+      function:
+        name: "check_whether_response_word_count_in_range"
+        description: "Checks if the total word count of the response is within a specified range [lower_bound, upper_bound]."
+        parameters:
+          type: "object"
+          properties:
+            response:
+              type: "string"
+              description: "Text name to be checked (e.g., 'text_0', 'text_1', 'text_2', etc.)"
+            lower_bound:
+              type: "integer"
+              description: "The minimum allowed word count."
+            upper_bound:
+              type: "integer"
+              description: "The maximum allowed word count."
+          required: ["response", "lower_bound", "upper_bound"]
+
+  - class_name: "verl.tools.instruction_following_tool.EachParagraphWordCountInRangeTool"
+    config: 
+      type: native
+    tool_schema:
+      type: "function"
+      function:
+        name: "check_whether_each_paragraph_word_count_in_range"
+        description: "Checks if the word count of each paragraph in the response is within a specified range [lower_bound, upper_bound]."
+        parameters:
+          type: "object"
+          properties:
+            response:
+              type: "string"
+              description: "Text name to be checked (e.g., 'text_0', 'text_1', 'text_2', etc.)"
+            lower_bound:
+              type: "integer"
+              description: "The minimum allowed word count per paragraph."
+            upper_bound:
+              type: "integer"
+              description: "The maximum allowed word count per paragraph."
+          required: ["response", "lower_bound", "upper_bound"]
+
+  - class_name: "verl.tools.instruction_following_tool.NotContainSubstringsTool"
+    config: 
+      type: native
+    tool_schema:
+      type: "function"
+      function:
+        name: "check_whether_whole_response_not_contain_certain_substrings"
+        description: "Checks if the response does not contain any of the substrings from a given list."
+        parameters:
+          type: "object"
+          properties:
+            response:
+              type: "string"
+              description: "Text name to be checked (e.g., 'text_0', 'text_1', 'text_2', etc.)"
+            substrings:
+              type: "array"
+              description: "A list of substrings that should not appear in the response."
+              items:
+                type: "string"
+          required: ["response", "substrings"]
+
+  - class_name: "verl.tools.instruction_following_tool.NotContainSubstringTool"
+    config: 
+      type: native
+    tool_schema:
+      type: "function"
+      function:
+        name: "check_whether_whole_response_not_contain_certain_substring"
+        description: "Checks if the response does not contain a specific substring."
+        parameters:
+          type: "object"
+          properties:
+            response:
+              type: "string"
+              description: "Text name to be checked (e.g., 'text_0', 'text_1', 'text_2', etc.)"
+            substring:
+              type: "string"
+              description: "The substring that should not appear in the response."
+          required: ["response", "substring"]
+
+  - class_name: "verl.tools.instruction_following_tool.EachSentenceBeginsWithTool"
+    config: 
+      type: native
+    tool_schema:
+      type: "function"
+      function:
+        name: "check_whether_each_sentence_begin_with_certain_substring"
+        description: "Checks if every sentence in the response begins with a specific substring (case-insensitive)."
+        parameters:
+          type: "object"
+          properties:
+            response:
+              type: "string"
+              description: "Text name to be checked (e.g., 'text_0', 'text_1', 'text_2', etc.)"
+            substring:
+              type: "string"
+              description: "The substring that each sentence must start with."
+          required: ["response", "substring"]
+
+  - class_name: "verl.tools.instruction_following_tool.EachParagraphBeginsWithTool"
+    config: 
+      type: native
+    tool_schema:
+      type: "function"
+      function:
+        name: "check_whether_each_paragraph_begin_with_certain_substring"
+        description: "Checks if every paragraph in the response begins with a specific substring (case-insensitive)."
+        parameters:
+          type: "object"
+          properties:
+            response:
+              type: "string"
+              description: "Text name to be checked (e.g., 'text_0', 'text_1', 'text_2', etc.)"
+            substring:
+              type: "string"
+              description: "The substring that each paragraph must start with."
+          required: ["response", "substring"]
+
+  - class_name: "verl.tools.instruction_following_tool.EachParagraphEndsWithTool"
+    config: 
+      type: native
+    tool_schema:
+      type: "function"
+      function:
+        name: "check_whether_each_paragraph_end_with_certain_substring"
+        description: "Checks if every paragraph in the response ends with a specific substring (case-insensitive)."
+        parameters:
+          type: "object"
+          properties:
+            response:
+              type: "string"
+              description: "Text name to be checked (e.g., 'text_0', 'text_1', 'text_2', etc.)"
+            substring:
+              type: "string"
+              description: "The substring that each paragraph must end with."
+          required: ["response", "substring"]
+
+  - class_name: "verl.tools.instruction_following_tool.EachSentenceEndsWithTool"
+    config: 
+      type: native
+    tool_schema:
+      type: "function"
+      function:
+        name: "check_whether_each_sentence_end_with_certain_substring"
+        description: "Checks if every sentence in the response ends with a specific substring (case-insensitive)."
+        parameters:
+          type: "object"
+          properties:
+            response:
+              type: "string"
+              description: "Text name to be checked (e.g., 'text_0', 'text_1', 'text_2', etc.)"
+            substring:
+              type: "string"
+              description: "The substring that each sentence must end with."
+          required: ["response", "substring"]
+
+  - class_name: "verl.tools.instruction_following_tool.ResponseBeginsWithTool"
+    config: 
+      type: native
+    tool_schema:
+      type: "function"
+      function:
+        name: "check_whether_whole_response_begin_with_certain_substring"
+        description: "Checks if the entire response begins with a specific substring (case-insensitive)."
+        parameters:
+          type: "object"
+          properties:
+            response:
+              type: "string"
+              description: "Text name to be checked (e.g., 'text_0', 'text_1', 'text_2', etc.)"
+            substring:
+              type: "string"
+              description: "The substring that the response must start with."
+          required: ["response", "substring"]
+
+  - class_name: "verl.tools.instruction_following_tool.ResponseEndsWithTool"
+    config: 
+      type: native
+    tool_schema:
+      type: "function"
+      function:
+        name: "check_whether_whole_response_end_with_certain_substring"
+        description: "Checks if the entire response ends with a specific substring (case-insensitive)."
+        parameters:
+          type: "object"
+          properties:
+            response:
+              type: "string"
+              description: "Text name to be checked (e.g., 'text_0', 'text_1', 'text_2', etc.)"
+            substring:
+              type: "string"
+              description: "The substring that the response must end with."
+          required: ["response", "substring"]
+
+  - class_name: "verl.tools.instruction_following_tool.EachKeywordMentionedInRangeTool"
+    config: 
+      type: native
+    tool_schema:
+      type: "function"
+      function:
+        name: "check_whether_each_keyword_in_list_mentioned_in_range"
+        description: "Checks if the count of each individual keyword from a list falls within a specified range. Matches whole words, case-insensitively."
+        parameters:
+          type: "object"
+          properties:
+            response:
+              type: "string"
+              description: "Text name to be checked (e.g., 'text_0', 'text_1', 'text_2', etc.)"
+            keywords:
+              type: "array"
+              description: "A list of keywords to count."
+              items:
+                type: "string"
+            lower_bound_times:
+              type: "integer"
+              description: "The minimum number of times each keyword must appear."
+            upper_bound_times:
+              type: "integer"
+              description: "The maximum number of times each keyword must appear."
+          required: ["response", "keywords", "lower_bound_times", "upper_bound_times"]
+
+  - class_name: "verl.tools.instruction_following_tool.TotalKeywordsMentionedInRangeTool"
+    config: 
+      type: native
+    tool_schema:
+      type: "function"
+      function:
+        name: "check_whether_total_keyword_in_list_mentioned_in_range"
+        description: "Checks if the total count of all keywords from a list falls within a specified range. Matches whole words, case-insensitively."
+        parameters:
+          type: "object"
+          properties:
+            response:
+              type: "string"
+              description: "Text name to be checked (e.g., 'text_0', 'text_1', 'text_2', etc.)"
+            keywords:
+              type: "array"
+              description: "A list of keywords to count."
+              items:
+                type: "string"
+            lower_bound_times:
+              type: "integer"
+              description: "The minimum total number of times the keywords must appear."
+            upper_bound_times:
+              type: "integer"
+              description: "The maximum total number of times the keywords must appear."
+          required: ["response", "keywords", "lower_bound_times", "upper_bound_times"]
+
+  - class_name: "verl.tools.instruction_following_tool.PercentagePrecisionTool"
+    config: 
+      type: native
+    tool_schema:
+      type: "function"
+      function:
+        name: "check_percentage_number_precision_in_response"
+        description: "Checks if all numbers followed by a '%' sign have a specific number of decimal places."
+        parameters:
+          type: "object"
+          properties:
+            response:
+              type: "string"
+              description: "Text name to be checked (e.g., 'text_0', 'text_1', 'text_2', etc.)"
+            precision:
+              type: "integer"
+              description: "The required number of decimal places for percentages."
+          required: ["response", "precision"]
+
+  - class_name: "verl.tools.instruction_following_tool.NumberPrecisionTool"
+    config: 
+      type: native
+    tool_schema:
+      type: "function"
+      function:
+        name: "check_number_precision_in_response"
+        description: "Checks if all numeric values have a specific number of decimal places. Integers are considered to have 0 precision."
+        parameters:
+          type: "object"
+          properties:
+            response:
+              type: "string"
+              description: "Text name to be checked (e.g., 'text_0', 'text_1', 'text_2', etc.)"
+            precision:
+              type: "integer"
+              description: "The required number of decimal places for all numbers."
+          required: ["response", "precision"]
+
+  - class_name: "verl.tools.instruction_following_tool.NoArabicNumberTool"
+    config: 
+      type: native
+    tool_schema:
+      type: "function"
+      function:
+        name: "check_whether_has_no_arabic_number_in_response"
+        description: "Checks if the response contains no standalone Arabic numbers (e.g., 123, 3.14, 1,000)."
+        parameters:
+          type: "object"
+          properties:
+            response:
+              type: "string"
+              description: "Text name to be checked (e.g., 'text_0', 'text_1', 'text_2', etc.)"
+          required: ["response"]
