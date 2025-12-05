@@ -154,8 +154,7 @@ bash examples/self/multiturn/agent/crop.sh
 All of the reward functions of each stage are under the `verl/utils/reward_score` directory and the classification of the different reward functions for tasks is in `verl/utils/reward_score/__init__.py`.
 
 ### Part 4: Evaluation
-We integrate ARM-Thinker with [VLMEvalKit](https://github.com/open-compass/VLMEvalKit) to evaluate the performance of ARM-Thinker on widely used benchmarks. In `extra_repos/VLMEvalKit` directory, we provide the modified version of VLMEvalKit for agentic evaluation.
-> You can also follow our implementation to clone the latest version of VLMEvalKit and modify it to support our agentic evaluation.
+We integrate ARM-Thinker with [VLMEvalKit](https://github.com/open-compass/VLMEvalKit) to evaluate the performance of ARM-Thinker on widely used benchmarks.
 
 ## ✒️ Citation
 
