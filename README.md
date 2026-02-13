@@ -35,9 +35,7 @@
 </div>
 <p align="center">
   📖 <a href="https://arxiv.org/pdf/2512.05111">Paper</a> |
-  🤗 <a href="https://github.com/InternLM/ARM-Thinker">Models</a> |
-  🤗 <a href="https://github.com/InternLM/ARM-Thinker">SFT-Data</a> |
-  🤗 <a href="https://github.com/InternLM/ARM-Thinker">RL-Data</a> |
+  🤗 <a href="https://huggingface.co/collections/ChrisDing1105/arm-thinker">HF Collection</a> |
   🤗 <a href="https://github.com/InternLM/ARM-Thinker">Daily Paper</a>
 </p>
 
