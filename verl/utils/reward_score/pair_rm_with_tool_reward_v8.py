@@ -5,6 +5,20 @@ from typing import Union, Dict, Any
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
+# Numerical instantiation of the stage-2 reward in Eq. (5) of the paper:
+#
+#   R_f     = 0.3  (valid final-answer format)
+#   R_try   = 0.1  (a tool was attempted when the answer is incorrect)
+#   R_a     = 0.7  (the final answer is correct)
+#   R_succ  = 0.5  (a successful tool result supports a correct answer)
+#
+# An invalid final-answer format receives zero reward.
+FORMAT_REWARD = 0.3
+TOOL_ATTEMPT_REWARD = 0.1
+ACCURACY_REWARD = 0.7
+SUCCESSFUL_TOOL_REWARD = 0.5
+INVALID_FORMAT_REWARD = 0.0
+
 # ================================================================
 #  Choice extraction (only allow “Answer 1/2 is better/preferred”)
 # ================================================================
@@ -72,7 +86,11 @@ def compute_score_detailed(
 
     if not is_format_ok:
         return {
-            "final_score": 0.0,
+            "final_score": INVALID_FORMAT_REWARD,
+            "format_reward": 0.0,
+            "accuracy_reward": 0.0,
+            "tool_attempt_reward": 0.0,
+            "successful_tool_reward": 0.0,
             "is_correct": False,
             "is_format_ok": False,
             "predicted_answer": "",
@@ -91,19 +109,32 @@ def compute_score_detailed(
     successful_tool_calls = response_str.count("This is the zoom-in image")
     has_tool_usage = total_tool_calls > 0
 
-    if not is_correct:
-        final_score = 0.4 if has_tool_usage else 0.3
-        tool_bonus = 0.0
-    else:
-        if successful_tool_calls > 0:
-            final_score = 1.5
-            tool_bonus = 0.5
-        else:
-            final_score = 1.0
-            tool_bonus = 0.0
+    # Eq. (5): R_f is awarded for a valid final format. Incorrect answers
+    # receive R_try when a tool was attempted; correct answers receive R_a
+    # and additionally R_succ when at least one tool call succeeded.
+    format_reward = FORMAT_REWARD
+    accuracy_reward = ACCURACY_REWARD if is_correct else 0.0
+    tool_attempt_reward = (
+        TOOL_ATTEMPT_REWARD if (not is_correct and has_tool_usage) else 0.0
+    )
+    successful_tool_reward = (
+        SUCCESSFUL_TOOL_REWARD
+        if (is_correct and successful_tool_calls > 0)
+        else 0.0
+    )
+    final_score = (
+        format_reward
+        + accuracy_reward
+        + tool_attempt_reward
+        + successful_tool_reward
+    )
 
     return {
         "final_score": final_score,
+        "format_reward": format_reward,
+        "accuracy_reward": accuracy_reward,
+        "tool_attempt_reward": tool_attempt_reward,
+        "successful_tool_reward": successful_tool_reward,
         "is_correct": is_correct,
         "is_format_ok": True,
         "predicted_answer": predicted_answer,
@@ -111,7 +142,7 @@ def compute_score_detailed(
         "has_tool_usage": has_tool_usage,
         "successful_tool_calls": successful_tool_calls,
         "total_tool_calls": total_tool_calls,
-        "tool_bonus": tool_bonus,
+        "tool_bonus": tool_attempt_reward + successful_tool_reward,
     }
 
 
